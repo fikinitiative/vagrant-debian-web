@@ -13,7 +13,6 @@ Vagrant.configure("2") do |config|
   # doesn't already exist on the user's system.
   config.vm.box_url = "https://dl.dropboxusercontent.com/u/3023748/debian-wheezy-64.box"
 
-  config.vm.hostname = "fik-dev"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
