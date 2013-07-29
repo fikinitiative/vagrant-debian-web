@@ -77,7 +77,9 @@ Vagrant.configure("2") do |config|
   #
    config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "manifests"
-     puppet.manifest_file  = "wheezy64.pp"
+     puppet.module_path = "modules"
+     puppet.options = ['--verbose']
+     # puppet.manifest_file  = "wheezy64.pp"
    end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
