@@ -38,10 +38,7 @@ package { 'apache2-mpm-prefork':
   notify => Service['apache'],
 }
 
-file { '/home/vagrant/.bash_aliases':
-  ensure => 'present',
-  source => 'puppet:///modules/puphpet/dot/.bash_aliases',
-}
+class { 'puphpet::dotfiles': }
 
 package { [
     'build-essential',
@@ -60,11 +57,12 @@ apache::dotconf { 'custom':
 
 apache::module { 'rewrite': }
 
-apache::vhost { 'fikcheckout.vg':
-  server_name   => 'fikcheckout.vg',
+apache::vhost { 'fikstores.vm':
+  server_name   => 'fikstores.vm',
   serveraliases => [
-],
-  docroot       => '/var/www/',
+    'prueba.fikstores.vm'
+  ],
+  docroot       => '/var/www/wp-fikstore',
   port          => '80',
   env_variables => [
 ],
@@ -93,17 +91,49 @@ class { 'php::pear':
 
 
 
+$xhprofPath = '/var/www/xhprof'
+
 php::pecl::module { 'xhprof':
   use_package     => false,
   preferred_state => 'beta',
 }
 
+if !defined(Package['git-core']) {
+  package { 'git-core' : }
+}
+
+vcsrepo { $xhprofPath:
+  ensure   => present,
+  provider => git,
+  source   => 'https://github.com/facebook/xhprof.git',
+  require  => Package['git-core']
+}
+
+file { "${xhprofPath}/xhprof_html":
+  ensure  => 'directory',
+  owner   => 'vagrant',
+  group   => 'vagrant',
+  mode    => '0775',
+  require => Vcsrepo[$xhprofPath]
+}
+
+composer::run { 'xhprof-composer-run':
+  path    => $xhprofPath,
+  require => [
+    Class['composer'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
+}
+
 apache::vhost { 'xhprof':
   server_name => 'xhprof',
-  docroot     => '/var/www/xhprof/xhprof_html',
+  docroot     => "${xhprofPath}/xhprof_html",
   port        => 80,
   priority    => '1',
-  require     => Php::Pecl::Module['xhprof']
+  require     => [
+    Php::Pecl::Module['xhprof'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
 }
 
 
@@ -153,12 +183,12 @@ class { 'mysql::server':
   config_hash   => { 'root_password' => 'fik' }
 }
 
-mysql::db { 'fikcheckout':
+mysql::db { 'dev_fikstores':
   grant    => [
     'ALL'
   ],
-  user     => 'fikcheckout',
-  password => 'fikcheckout',
+  user     => 'fikstores',
+  password => 'fikstores',
   host     => 'localhost',
   charset  => 'utf8',
   require  => Class['mysql::server'],
