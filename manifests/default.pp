@@ -57,10 +57,10 @@ apache::dotconf { 'custom':
 
 apache::module { 'rewrite': }
 
-apache::vhost { 'fikstores.vm':
-  server_name   => 'fikstores.vm',
+apache::vhost { 'fikstores.lc':
+  server_name   => 'fikstores.lc',
   serveraliases => [
-    'prueba.fikstores.vm'
+    'prueba.fikstores.lc'
   ],
   docroot       => '/var/www/wp-fikstore',
   port          => '80',
@@ -137,9 +137,9 @@ apache::vhost { 'xhprof':
 }
 
 
-class { 'xdebug':
-  service => 'apache',
-}
+#class { 'xdebug':
+#  service => 'apache',
+#}
 
 class { 'composer':
   require => Package['php5', 'curl'],
@@ -187,8 +187,8 @@ mysql::db { 'dev_fikstores':
   grant    => [
     'ALL'
   ],
-  user     => 'fikstores',
-  password => 'fikstores',
+  user     => 'fikcheckout',
+  password => 'f1kcheckout',
   host     => 'localhost',
   charset  => 'utf8',
   require  => Class['mysql::server'],
