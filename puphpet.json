@@ -14,7 +14,7 @@
             },
             "foldertype": "default",
             "synced_folder": {
-                "source": "\/Users\/minaya\/Sites",
+                "source": "..\/Sites",
                 "target": "\/var\/www"
             }
         },
