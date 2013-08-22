@@ -101,7 +101,7 @@
                 "privileges": [
                     "ALL"
                 ],
-                "user": "fikcheckout",
+                "user": "fikstores",
                 "password": "<REMOVED>",
                 "dbname": "dev_fikstores",
                 "host": "localhost",

@@ -187,8 +187,8 @@ mysql::db { 'dev_fikstores':
   grant    => [
     'ALL'
   ],
-  user     => 'fikcheckout',
-  password => 'f1kcheckout',
+  user     => 'fikstores',
+  password => 'f1kstores',
   host     => 'localhost',
   charset  => 'utf8',
   require  => Class['mysql::server'],
