@@ -12,7 +12,7 @@
                 "host": "",
                 "guest": ""
             },
-            "foldertype": "default",
+            "foldertype": "nfs",
             "synced_folder": {
                 "source": "..\/Sites",
                 "target": "\/var\/www"
