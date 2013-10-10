@@ -73,7 +73,8 @@
                 "php5-cli",
                 "php5-curl",
                 "php5-intl",
-                "php5-mcrypt"
+t               "php5-mcrypt",
+t               "php5-apc"
             ],
             "pear": {
                 "installed": "1"
