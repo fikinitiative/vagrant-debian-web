@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  # config.vm.synced_folder "../Sites", "/var/www", id: "vagrant-root"
+  config.vm.synced_folder "../Sites", "/var/www", id: "vagrant-root"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -62,8 +62,6 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--name", "fik-dev-box"]
   end
 
-  nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
-  config.vm.synced_folder "../Sites", "/var/www", id: "vagrant-root" , :nfs => nfs_setting
   config.vm.provision :shell, :inline =>
     "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && sudo touch /apt-get-run; fi"
 
