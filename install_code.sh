@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copy clean database production dump from dropbox to ~/Sites/sql/ddbb.sql
 
-DIR="/Users/$(whoami)/Sites/wp-fikstore1/"
+DIR="/Users/$(whoami)/Sites/wp-fikstore/"
 
 if [ -d "$DIR" ]; then
     true
