@@ -111,5 +111,5 @@ mysql:
             name: dev_fikstores
             host: localhost
             user: fikstores
-            password: f1kstores
-            sql_file: /var/www/sql/dev_fikstores_2013-05-23.sql
+            password: fikstores
+            sql_file: /var/www/sql/ddbb.sql
