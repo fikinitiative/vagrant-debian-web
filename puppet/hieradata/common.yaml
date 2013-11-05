@@ -15,7 +15,7 @@ vagrantfile-local:
                 modifyvm:
                     name: fik-box
                     natdnshostresolver1: on
-                    memory: '1024'
+                    memory: '2048'
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
