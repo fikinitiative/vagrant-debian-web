@@ -1,0 +1,115 @@
+---
+vagrantfile-local:
+    vm:
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'https://puphpet.s3.amazonaws.com/debian-wheezy72-x64-vbox43.box'
+        hostname: null
+        network:
+            private_network: 192.168.56.101
+            forwarded_port:
+                fzHnH3UxD3rz:
+                    host: '4567'
+                    guest: '80'
+        provider:
+            virtualbox:
+                modifyvm:
+                    name: fik-box
+                    natdnshostresolver1: on
+                    memory: '1024'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puppet/manifests
+                options:
+                    - --verbose
+                    - '--hiera_config /vagrant/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            944t52d3qlsi:
+                id: vagrant-root
+                source: ../Sites
+                target: /var/www
+                nfs: 'true'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: ':detect'
+server:
+    packages:
+        - vim
+        - curl
+        - git-core
+        - build-essential
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+apache:
+    modules:
+        - php
+        - rewrite
+    vhosts:
+        FyDbECRmkmXc:
+            servername: fikstore.lc
+            serveraliases:
+                - '*.fikstore.lc'
+            docroot: /var/www/wp-fikstore
+            port: '80'
+            setenv:
+                - 'APP_ENV dev'
+            override:
+                - All
+    user: www-data
+    group: www-data
+    default_vhost: true
+    mpm_module: prefork
+php:
+    version: '54'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - intl
+            - mcrypt
+            - curl
+            - gd
+            - imagick
+            - sqlite
+        pear: {  }
+        pecl:
+            - pecl_http
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+    timezone: Europe/Madrid
+xdebug:
+    install: 0
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9000'
+mysql:
+    root_password: '123'
+    phpmyadmin: 0
+    databases:
+        V847lebFCXWv:
+            grant:
+                - ALL
+            name: dev_fikstores
+            host: localhost
+            user: fikstores
+            password: f1kstores
+            sql_file: /var/www/sql/dev_fikstores_2013-05-23.sql
