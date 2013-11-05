@@ -19,8 +19,19 @@ Next steps:
 * Clone the repo on your user directory:
   $ git clone git@github.com:fikinitiative/vagrant-debian-web.git /Users/youruser/Sites/vagrant-debian-web
 
-* Go to this directory and start the virtual machine:
+* Go this directory
   $ cd /Users/youruser/Sites/vagrant-debian-web
+
+* Execute install_ddbb.sh
+  $ sh install_ddbb.sh
+
+* Execute install_code.sh
+  $ sh install_code.sh
+
+* (If you are on OSX) Go to this directory and executes install_vagrant_sudoers.sh
+  $ sudo sh install_vagrant_sudoers.sh
+
+* Start the virtual machine:
   $ vagrant up
 
 * Afterwards you may access your box with
@@ -38,13 +49,7 @@ Install wp-fikstores:
 * On your computer, add to /etc/hosts the host configuration to the new virtual machine:
   192.168.56.101 fikstore.lc prueba.fikstore.lc hola.fikstore.lc
 
-* Clone on /Users/youruser/Sites/ the wp-fikstore repo:
-  $ git clone git@github.com:fikinitiative/wp-fikstore.git /Users/youruser/Sites/wp-fikstore
-
-* Copy the wordpress configuration:
-  $ cp /Users/youruser/Sites/wp-fikstore/wp-config.php.local /Users/youruser/Sites/wp-fikstore/wp-config.php
-
-* If you have not installed composer, do it:
+* If you have not installed composer yet, do it:
   $ brew tap josegonzalez/homebrew-php
   $ brew install josegonzalez/php/composer
   $ composer selfupdate
@@ -52,10 +57,6 @@ Install wp-fikstores:
 * Run composer install on the project:
   $ cd /Users/youruser/Sites/wp-fikstore/
   $ composer install
-
-* Copy database backup file (ddbb.sql) on the /Users/youruser/vagrant-debian-web directory and goes to the directory. Then, executes the backup file on the virtual machine:
-  $ vagrant ssh
-  $ mysql -ufikstores -p dev_fikstores < /vagrant/ddbb.sql
 
 * Now, you can test it on a browser: http://prueba.fikstore.lc/
 
