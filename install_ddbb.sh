@@ -3,6 +3,7 @@
 
 DIR="/Users/$(whoami)/Sites/sql/"
 DDBB="ddbb.sql"
+URL="https://dl.dropboxusercontent.com/s/k8ovlmpxc2x7lf7/wp-fikstores.latest.sql.gz"
 
 if [ -d "$DIR" ]; then
     true
@@ -11,8 +12,8 @@ else
     mkdir -p $DIR
 fi
 
-echo "Copying database..."
-curl --output "$DDBB.gz" -O# https://dl.dropboxusercontent.com/s/gdvm4dzi43t174b/test_cleanup2_2013-11-05.sql.gz?dl=1&token_hash=AAH6cYbAHGSEYNhlwQqog4bqZFisfwu_QhsYSZdzpbeXEQ 
+echo "Downloading database..."
+curl --output "$DDBB.gz" -OL# $URL
 wait
 gzip -d "$DDBB.gz"
 mv $DDBB "$DIR/$DDBB"
